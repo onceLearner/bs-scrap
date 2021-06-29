@@ -1,4 +1,4 @@
-from bsScrap.bsMethods import scrap_emploi
+from bsMethods import scrap_emploi
 
 #test urls
 url = "https://www.emploi.ma/offre-emploi-maroc/charge-projets-etudes-developpement-si-5505498"
