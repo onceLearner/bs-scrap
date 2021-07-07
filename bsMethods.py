@@ -82,5 +82,5 @@ def scrap_emploi(url):
         scrapped_data['languages'][elt.text.split('›')[0]] = elt.text.split('›')[1]
 
     # create json object,
-    serialized = json.dumps(scrapped_data, indent=4);
+    serialized = json.dumps(scrapped_data, indent=4,ensure_ascii=False);
     print(serialized)
