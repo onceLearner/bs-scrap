@@ -6,7 +6,7 @@ from bsMethods import scrap_emploi,scrap_announces_url_into_array
 
 app = Flask(__name__)
 
-cors = CORS(app)
+CORS(app)
 
 
 
