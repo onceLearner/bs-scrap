@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask , flash, request, redirect, url_for,send_file, send_from_directory, safe_join, abort,jsonify
 
 from flask_cors import CORS, cross_origin
@@ -41,8 +43,8 @@ def scrap_annonces():
 
 
 
-
+port = int(os.environ.get('PORT', 5000))
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
-    app.run(threaded=True)
+    app.run(threaded=True,port=port,debug=True)
