@@ -21,8 +21,5 @@ for item in all_jobs_divs :
     array_all_jobs.append(item.findNext().findNext()['href'])
 
 
-for item in  array_all_jobs:
-    print(item)
 
-print(array_all_jobs.__len__())
 

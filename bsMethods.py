@@ -9,6 +9,29 @@ url3 = "https://www.emploi.ma/offre-emploi-maroc/directeur-production-agroalimen
 url4_multiplelang = "https://www.emploi.ma/offre-emploi-maroc/anglais-espagnol-tour-operator-reception-appel-6220371"
 
 
+def scrap_announces_url_into_array(number_of_pages):
+
+    # array to be returned
+    array_all_jobs = []
+
+    # iterate depending on the number of pages we want to scrap
+    for i in range(number_of_pages):
+      #load the page into beautifulSoup
+      response = get("https://www.emploi.ma/recherche-jobs-maroc?page={}".format(i));
+      soup = BeautifulSoup(response.text, 'html.parser')
+      all_jobs_divs = soup.find_all("div", "job-title")
+
+      for item in all_jobs_divs:
+          array_all_jobs.append(item.findNext().findNext()['href'])
+
+
+    return  array_all_jobs
+
+
+
+
+
+
 def scrap_emploi(url):
     # getting the html  document  from the page
     response = get(url);
@@ -61,7 +84,8 @@ def scrap_emploi(url):
     scrapped_data['publication_date']['year'] = date_array[2]
 
     scrapped_data['company']['title'] = soup.find("div", "company-title").text
-    scrapped_data['company']['sector'] = soup.find("div", "field-name-field-entreprise-secteur").text.split(",")
+    scrapped_data['company']['sector'] = soup.find("div", "field-name-field-entreprise-secteur").text.split(",") if soup.find("td",
+                                                                                                   "field-name-field-entreprise-secteur") else None
     scrapped_data['company']['website'] = soup.find("td", "website-url").text.strip() if soup.find("td",
                                                                                                    "website-url") else None
     scrapped_data['company']['description'] = \
@@ -73,7 +97,7 @@ def scrap_emploi(url):
     scrapped_data['profile'] = soup.find(text=re.compile('Profil')).findNext().text.strip().split("\n")
     scrapped_data['contract_type'] = soup.find('div', "field-name-field-offre-contrat-type").text
     scrapped_data['region'] = soup.find('div', "field-name-field-offre-region").text
-    scrapped_data['city'] = soup.find('td', text=re.compile("Ville : ")).findNext().text
+    scrapped_data['city'] = soup.find('td', text=re.compile("Ville : ")).findNext().text if soup.find('td', text=re.compile("Ville : ")) else None
     scrapped_data['level_experience'] = soup.find('div', "field-name-field-offre-niveau-experience").text
     scrapped_data['level_studies'] = soup.find('div', "field-name-field-offre-niveau-etude").text
 
@@ -83,4 +107,4 @@ def scrap_emploi(url):
 
     # create json object,
     serialized = json.dumps(scrapped_data, indent=4,ensure_ascii=False);
-    print(serialized)
+    return serialized
