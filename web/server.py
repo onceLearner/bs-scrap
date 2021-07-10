@@ -5,14 +5,19 @@ from flask_cors import CORS, cross_origin
 from bsMethods import scrap_emploi,scrap_announces_url_into_array
 
 app = Flask(__name__)
-
+app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app)
 
 
 
-@cross_origin()
 @app.route('/test', methods=['GET'])
 def home():
+    return "this is our first appi "
+
+
+@cross_origin()
+@app.route('/test1', methods=['GET'])
+def home1():
     return "this is our first appi "
 
 @cross_origin()
