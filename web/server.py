@@ -1,10 +1,11 @@
 import os
 
-from flask import Flask , flash, request, redirect, url_for,send_file, send_from_directory, safe_join, abort,jsonify
+from flask import Flask , request, jsonify
 from firebase_admin import credentials, firestore, initialize_app
 from flask_cors import CORS, cross_origin
 import time
-from bsMethods import scrap_emploi,scrap_announces_url_into_array
+from emploi.bsMethods import scrap_page_emploi,scrap_announces_url_into_array_from_Emploi
+from rekrute.bsMethods import  scrap_page_rekrute,scrap_announces_url_into_array_from_Rekrute
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -29,24 +30,87 @@ def home():
 def home1():
     return "this is our first appi "
 
+
+
+""""
+-----------------
+EMPLOI.ma
+
+---------------
+"""
+
+
+
+
+
 @cross_origin()
-@app.route('/scrap/oneJob/', methods=['GET'])
+@app.route('/emploi/scrap/oneJob/', methods=['GET'])
 def scrap_one_page():
     url = request.args['url']
-    return scrap_emploi(url)
+    return scrap_page_emploi(url)
 
 @cross_origin()
-@app.route('/scrap/multiplePages', methods=['GET'])
+@app.route('/emploi/scrap/multiplePages', methods=['GET'])
 def scrap_pages():
     number_of_pages = int(request.args['number'])
-    return jsonify(scrap_announces_url_into_array(number_of_pages))
+    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_pages))
 
 @cross_origin()
-@app.route('/scrap/multipleJobs/', methods=['GET'])
+@app.route('/emploi/scrap/multipleJobs/', methods=['GET'])
 def scrap_annonces():
     number_of_jobs = int(request.args['number'])
     print(number_of_jobs)
-    return jsonify( scrap_announces_url_into_array(number_of_jobs//25+1)[:number_of_jobs])
+    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_jobs//25+1)[:number_of_jobs])
+
+
+
+
+
+
+""""
+-----------------
+REKRUTE.com
+
+---------------
+"""
+
+
+@cross_origin()
+@app.route('/rekrute/scrap/oneJob/', methods=['GET'])
+def scrap_one_page():
+    url = request.args['url']
+    return scrap_page_emploi(url)
+
+@cross_origin()
+@app.route('/rekrute/scrap/multiplePages', methods=['GET'])
+def scrap_pages():
+    number_of_pages = int(request.args['number'])
+    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_pages))
+
+@cross_origin()
+@app.route('/rekrute/scrap/multipleJobs/', methods=['GET'])
+def scrap_annonces():
+    number_of_jobs = int(request.args['number'])
+    print(number_of_jobs)
+    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_jobs//25+1)[:number_of_jobs])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

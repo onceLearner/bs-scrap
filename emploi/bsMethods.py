@@ -9,7 +9,7 @@ url3 = "https://www.emploi.ma/offre-emploi-maroc/directeur-production-agroalimen
 url4_multiplelang = "https://www.emploi.ma/offre-emploi-maroc/anglais-espagnol-tour-operator-reception-appel-6220371"
 
 
-def scrap_announces_url_into_array(number_of_pages):
+def scrap_announces_url_into_array_from_Emploi(number_of_pages):
 
     # array to be returned
     array_all_jobs = []
@@ -32,7 +32,7 @@ def scrap_announces_url_into_array(number_of_pages):
 
 
 
-def scrap_emploi(url):
+def scrap_page_emploi(url):
     # getting the html  document  from the page
     response = get(url);
 
