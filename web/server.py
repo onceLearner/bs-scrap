@@ -45,19 +45,19 @@ EMPLOI.ma
 
 @cross_origin()
 @app.route('/emploi/scrap/oneJob/', methods=['GET'])
-def scrap_one_page():
+def scrap_one_page_emploi():
     url = request.args['url']
     return scrap_page_emploi(url)
 
 @cross_origin()
 @app.route('/emploi/scrap/multiplePages', methods=['GET'])
-def scrap_pages():
+def scrap_pages_emploi():
     number_of_pages = int(request.args['number'])
     return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_pages))
 
 @cross_origin()
 @app.route('/emploi/scrap/multipleJobs/', methods=['GET'])
-def scrap_annonces():
+def scrap_annonces_emploi():
     number_of_jobs = int(request.args['number'])
     print(number_of_jobs)
     return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_jobs//25+1)[:number_of_jobs])
@@ -77,19 +77,19 @@ REKRUTE.com
 
 @cross_origin()
 @app.route('/rekrute/scrap/oneJob/', methods=['GET'])
-def scrap_one_page():
+def scrap_one_page_rekrute():
     url = request.args['url']
     return scrap_page_emploi(url)
 
 @cross_origin()
 @app.route('/rekrute/scrap/multiplePages', methods=['GET'])
-def scrap_pages():
+def scrap_pages_rekrute():
     number_of_pages = int(request.args['number'])
     return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_pages))
 
 @cross_origin()
 @app.route('/rekrute/scrap/multipleJobs/', methods=['GET'])
-def scrap_annonces():
+def scrap_annonces_rekrute():
     number_of_jobs = int(request.args['number'])
     print(number_of_jobs)
     return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_jobs//25+1)[:number_of_jobs])
