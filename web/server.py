@@ -79,20 +79,20 @@ REKRUTE.com
 @app.route('/rekrute/scrap/oneJob/', methods=['GET'])
 def scrap_one_page_rekrute():
     url = request.args['url']
-    return scrap_page_emploi(url)
+    return scrap_page_rekrute(url)
 
 @cross_origin()
 @app.route('/rekrute/scrap/multiplePages', methods=['GET'])
 def scrap_pages_rekrute():
     number_of_pages = int(request.args['number'])
-    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_pages))
+    return jsonify(scrap_announces_url_into_array_from_Rekrute(number_of_pages))
 
 @cross_origin()
 @app.route('/rekrute/scrap/multipleJobs/', methods=['GET'])
 def scrap_annonces_rekrute():
     number_of_jobs = int(request.args['number'])
     print(number_of_jobs)
-    return jsonify(scrap_announces_url_into_array_from_Emploi(number_of_jobs//25+1)[:number_of_jobs])
+    return jsonify(scrap_announces_url_into_array_from_Rekrute(number_of_jobs//25+1)[:number_of_jobs])
 
 
 

@@ -27,6 +27,7 @@ def scrap_announces_url_into_array_from_Rekrute(number_of_pages):
     # url to the page
     url = "https://www.rekrute.com/offres.html?s=2&"
 
+    print(number_of_pages)
     # iterate depending on the number of pages we want to scrap
     for i in range(number_of_pages):
       #load the page into beautifulSoup
@@ -37,11 +38,7 @@ def scrap_announces_url_into_array_from_Rekrute(number_of_pages):
       for item in all_jobs_divs:
           array_all_jobs.append(item.findNext().findChildren("div", recursive=False)[1].findNext().findNext().findNext()['href'])
 
-
-    for item in array_all_jobs:
-        print(item)
-
-    #return  array_all_jobs
+    return  array_all_jobs
 
 
 
