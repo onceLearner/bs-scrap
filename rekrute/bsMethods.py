@@ -122,8 +122,6 @@ def scrap_page_rekrute(url):
     found = soup.find(text=re.compile('Profil recherché')).parent.parent.text.strip().split("Profil recherché :")[1].replace("\t","").split("\n")
     #print([ item.text.strip() for item in found ])
     serialized = json.dumps(scrapped_data, indent=4, ensure_ascii=False);
-    print(serialized)
-    print(remove_more_than_one_space(soup.find("span","newjob").text).split("Publiée "))
     return serialized
     return "hh"
 
@@ -137,4 +135,4 @@ url3 = "https://www.rekrute.com/offre-emploi-stagiaire-technicien-helpdesk-hf-re
 
 url4_old = "https://www.rekrute.com/offre-emploi-ingenieur-etude-et-developpement-.net-senior-hf-recrutement-neosys-casablanca-126725.html"
 
-scrap_page(url4_old)
+scrap_page_rekrute(url4_old)
